@@ -1,0 +1,15 @@
+<jsp:root xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:spring="http://www.springframework.org/tags"
+          version="2.0">
+	<table bgcolor="#FFAA7D" border="1" width="100%">
+		<tr align="center" >
+			<td>
+				<h3 align="center">F O O T E R</h3>
+			</td>
+		</tr>
+	</table>
+</jsp:root>
+
+
+
