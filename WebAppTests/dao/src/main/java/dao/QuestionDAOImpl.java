@@ -8,16 +8,15 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import connect.HibernateUtil;
+import dao.impl.QuestionDAO;
 import entity.*;
 import exceptions.DaoException;
 
 @Repository
-public class QuestionDAOImpl extends BaseDAO<Question> {
-	private static QuestionDAOImpl questionDao;
+public class QuestionDAOImpl extends BaseDAO<Question> implements QuestionDAO{
 	private static final Logger logger = Logger.getLogger(QuestionDAOImpl.class);
-	private SessionFactory sessionFactory;
 
-	private QuestionDAOImpl() {
+	public QuestionDAOImpl() {
 
 	}
 
@@ -25,13 +24,6 @@ public class QuestionDAOImpl extends BaseDAO<Question> {
 	public QuestionDAOImpl(SessionFactory sessionFactory) {
 		super(sessionFactory);
 		this.sessionFactory = sessionFactory;
-	}
-
-	public static synchronized QuestionDAOImpl getInstance() {
-		if (questionDao == null) {
-			questionDao = new QuestionDAOImpl();
-		}
-		return questionDao;
 	}
 
 	public List<Question> getQuestionPage(int page, Test test, int maxQuestions) throws DaoException {

@@ -11,32 +11,22 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import connect.HibernateUtil;
-
-@Repository
+@Repository()
 public class BaseDAO<T> implements Dao<T> {
 	private static Logger log = Logger.getLogger(BaseDAO.class);
 
-
-	private SessionFactory sessionFactory;
+	protected SessionFactory sessionFactory;
 
 	public BaseDAO() {
 
 	}
-	 @Autowired
+
+	@Autowired
 	public BaseDAO(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
 
-	public SessionFactory getSessionFactory() {
-		return sessionFactory;
-	}
-
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
-
-	private Session currentSession() {
+	protected Session currentSession() {
 		return sessionFactory.openSession();
 	}
 

@@ -1,20 +1,12 @@
 package dao.impl;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
+import java.util.List;
+import org.springframework.stereotype.Repository;
+import entity.Test;
+import exceptions.DaoException;
 
 
-public interface TestDAO {
-	
-	public int addTest(String nameSubject,String testName) throws SQLException;
-
-	public ResultSet selectTestById(int idTest) throws SQLException;
-	
-	public ResultSet selectAllTests() throws SQLException;
-	
-	
-	public void updateTest(String field, String value, int id);
-
-	
-	public void deleteTest(int id) throws SQLException;
+public interface TestDAO extends Dao<Test> {
+	public List<Test> getAllTestNames() throws DaoException;
 }

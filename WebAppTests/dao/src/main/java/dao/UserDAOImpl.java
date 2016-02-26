@@ -7,15 +7,14 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import connect.HibernateUtil;
+import dao.impl.UserDAO;
 import entity.User;
 import exceptions.DaoException;
 
 @Repository
-public class UserDAOImpl extends BaseDAO<User> {
-	private static UserDAOImpl userDao;
-	private static final Logger logger = Logger.getLogger(UserDAOImpl.class);
+public class UserDAOImpl extends BaseDAO<User> implements UserDAO{
 
-	private SessionFactory sessionFactory;
+	private static final Logger logger = Logger.getLogger(UserDAOImpl.class);
 
 	@Autowired
 	public UserDAOImpl(SessionFactory sessionFactory) {
@@ -23,24 +22,15 @@ public class UserDAOImpl extends BaseDAO<User> {
 		this.sessionFactory = sessionFactory;
 	}
 
-	private UserDAOImpl() {
+	public UserDAOImpl() {
 	}
 
-	Session currentSession() {
-		return sessionFactory.openSession();
-	}
-
-	public static synchronized UserDAOImpl getInstance() {
-		if (userDao == null) {
-			userDao = new UserDAOImpl();
-		}
-		return userDao;
-	}
-
+	
 	public User getUserByName(String name, String password) throws DaoException {
 		User user;
 		try {
 			// Session session = HibernateUtil.getInstance().getSession();
+			System.out.println("====================================================");
 			Session session = currentSession();
 			Criteria criteria = session.createCriteria(User.class);
 			criteria.add(Restrictions.eq("name", name));

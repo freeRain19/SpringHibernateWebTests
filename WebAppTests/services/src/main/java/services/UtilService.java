@@ -1,40 +1,28 @@
 package services;
 
-
-
-
 import java.util.List;
-import org.hibernate.*;
-import connect.HibernateUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.apache.log4j.Logger;
-import dao.*;
+import dao.impl.UserDAO;
 import entity.*;
+import impl.IUtilService;
 
-
-public class Service {
+@Service
+public class UtilService implements IUtilService {
 	static int currentTestId;
 	static int currentQuestionId;
 	Test currentTest;
-	private static final Logger logger = Logger.getLogger(Service.class);
-	private Transaction transaction = null;
+	private static final Logger logger = Logger.getLogger(UtilService.class);
 
 	public void setCurrentTest(Test currentTest) {
 		this.currentTest = currentTest;
 	}
-	
-	UserDAOImpl userDAO = UserDAOImpl.getInstance();
-	TestDAOImpl testDAO = TestDAOImpl.getInstance();
-	QuestionDAOImpl questDAO = QuestionDAOImpl.getInstance();
-	private static Service instance;
 
-	private Service() {
-	}
+	@Autowired
+	UserDAO userDAO;
 
-	public static synchronized Service getInstance() {
-		if (instance == null) {
-			instance = new Service();
-		}
-		return instance;
+	public UtilService() {
 	}
 
 	public Test getCurrentTest() {
@@ -45,18 +33,15 @@ public class Service {
 		int accessLevel = 0;
 		User user = null;
 		try {
-			//Session session = HibernateUtil.getInstance().getSession();
-			//transaction = session.beginTransaction();
 			user = userDAO.getUserByName(userName, password);
 			accessLevel = user.getAccessLevel_idAccessLevel();
-			//transaction.commit();
 		} catch (Exception e) {
-			//transaction.rollback();
 			logger.error("get User and password from databse exception \n" + e.toString());
 			return 0;
 		}
 		return accessLevel;
 	}
+
 	int count = 0;
 	int rightCount = 0;
 	private float rightPercent = 0.0f;
@@ -75,12 +60,12 @@ public class Service {
 	}
 
 	public int getRightPercent() {
-		System.out.println("count ="+count);
+		System.out.println("count =" + count);
 		count = 0;
-		rightCount=0;
+		rightCount = 0;
 		int value = (int) (rightPercent * 100);
 		rightPercent = 0;
-		System.out.println("Percent = "+value);
+		System.out.println("Percent = " + value);
 		return value;
 	}
 

@@ -1,15 +1,18 @@
 package dao.impl;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.io.Serializable;
+import java.util.List;
 
+import org.springframework.stereotype.Repository;
 
-public interface QuestionDAO {
-	public int addQuestion(int idTest, String QuestionText) throws SQLException;
+import entity.Question;
+import entity.Test;
+import exceptions.DaoException;
 
-	public ResultSet getQuestionListByIdTest(int idTest) throws SQLException;
+public interface QuestionDAO extends Dao<Question>{
+	public List<Question> getQuestionPage(int page, Test test, int maxQuestions) throws DaoException;
 
-	public void updateQuestion(String field, String value, int id) throws SQLException;
+	public int getCountQuestionsByTestId(int idTest) throws DaoException;
 
-	public void deleteQuestion(int id) throws SQLException;
+	public Serializable save(Question question) throws DaoException;
 }

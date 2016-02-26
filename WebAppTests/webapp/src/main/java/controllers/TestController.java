@@ -5,26 +5,25 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.apache.log4j.Logger;
-import org.hibernate.HibernateException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import connect.HibernateUtil;
 import entity.QuestionDTO;
 import entity.Test;
-import services.Service;
-import services.ServiceQuestion;
-import services.ServiceTest;
+import impl.*;
+
 
 @Controller
 public class TestController {
 	private static final Logger logger = Logger.getLogger(TestController.class);
-	ServiceTest serviceTest = ServiceTest.getInstance();
-	Service service = Service.getInstance();
-	ServiceQuestion serviceQuestion = ServiceQuestion.getInstance();
+	@Autowired
+	IServiceTest serviceTest ;
+	@Autowired
+	IUtilService service ;
+	@Autowired
+	IServiceQuestion serviceQuestion;
 
 	@RequestMapping("/selectTest")
 	public String selectTest(String idTest, ModelMap model, HttpSession session) {

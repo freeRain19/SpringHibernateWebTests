@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.*;
 import org.junit.Assert;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import connect.HibernateUtil;
 import entity.*;
@@ -15,10 +16,15 @@ import exceptions.DaoException;
 
 public class QuestionDAOImplTest {
 	private static Logger log = Logger.getLogger(QuestionDAOImplTest.class);
-	QuestionDAOImpl questionDao = QuestionDAOImpl.getInstance();
-	TestDAOImpl testDao = TestDAOImpl.getInstance();
 
-	 @Test
+	// QuestionDAOImpl questionDao = QuestionDAOImpl.getInstance();
+	// TestDAOImpl testDao = TestDAOImpl.getInstance();
+	@Autowired
+	QuestionDAOImpl questionDao;
+	@Autowired
+	TestDAOImpl testDao;
+
+	@Test
 	public void questionDaoTest() {
 		Serializable id;
 		Question question = null;
@@ -40,15 +46,14 @@ public class QuestionDAOImplTest {
 		Assert.assertEquals("Question question1=question", 1, 1);
 	}
 
-	//@Test
+	// @Test
 	public void testQuestion() throws DaoException {
 		List<Question> questions = new LinkedList<Question>();
-		int count = questionDao.getCountQuestionsByTestId(testDao.get(8)
-				.getIdTest());
+		int count = questionDao.getCountQuestionsByTestId(testDao.get(8).getIdTest());
 		System.out.println("ALL COUNT  questions = " + count);
 		for (int i = 1; i <= count; i++) {
 			try {
-				questions = questionDao.getQuestionPage(i, testDao.get(8),1);
+				questions = questionDao.getQuestionPage(i, testDao.get(8), 1);
 			} catch (DaoException e) {
 				e.printStackTrace();
 			}

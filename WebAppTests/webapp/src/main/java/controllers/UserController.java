@@ -1,16 +1,19 @@
 package controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import services.Service;
+import services.UtilService;
 import services.ServiceTest;
 
 @Controller
 public class UserController {
-	Service service = Service.getInstance();
-	ServiceTest serviceTest = ServiceTest.getInstance();
+	@Autowired
+	UtilService service;
+	@Autowired
+	ServiceTest serviceTest;
 
 	@RequestMapping(value = "/validate")
 	public String validateUser(String name, String password, ModelMap model) {
@@ -18,7 +21,7 @@ public class UserController {
 		accessLevel = service.validateUser(name, password);
 		model.put("resultTest", 0);
 		if (accessLevel == 1) {
-			if (ServiceTest.getInstance().getAllTests().size() > 0)
+			if (serviceTest.getAllTests().size() > 0)
 				model.put("tests", serviceTest.getAllTests());
 			return "viewtests";
 		}

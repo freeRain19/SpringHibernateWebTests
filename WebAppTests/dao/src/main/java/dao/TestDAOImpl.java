@@ -8,30 +8,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import connect.HibernateUtil;
+import dao.impl.TestDAO;
 import entity.*;
 import exceptions.DaoException;
 
 @Repository
-public class TestDAOImpl extends BaseDAO<Test> {
-	private static TestDAOImpl testDao;
+public class TestDAOImpl extends BaseDAO<Test> implements TestDAO{
+
 	private static final Logger logger = Logger.getLogger(TestDAOImpl.class);
-	private SessionFactory sessionFactory;
 
-	private TestDAOImpl() {
-
+	public TestDAOImpl() {
 	}
 
 	@Autowired
 	public TestDAOImpl(SessionFactory sessionFactory) {
 		super(sessionFactory);
 		this.sessionFactory = sessionFactory;
-	}
-
-	public static synchronized TestDAOImpl getInstance() {
-		if (testDao == null) {
-			testDao = new TestDAOImpl();
-		}
-		return testDao;
 	}
 
 	public List<Test> getAllTestNames() throws DaoException {
@@ -47,4 +39,6 @@ public class TestDAOImpl extends BaseDAO<Test> {
 		}
 		return testsNames;
 	}
+
+
 }

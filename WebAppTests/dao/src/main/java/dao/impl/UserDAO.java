@@ -1,17 +1,10 @@
 package dao.impl;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
-public interface UserDAO {
-	public void addUser(int idAccessLevel, String name) throws SQLException;
+import entity.User;
+import exceptions.DaoException;
 
-	public ResultSet selectUser(String listFields, String field, String symbol, String val) throws SQLException;
+public interface UserDAO extends Dao<User> {
 
-	public ResultSet selectUserPass(String listFields, String field, String symbol, String val, String pass)
-			throws SQLException;
-
-	public void updateUser(String field, String value, int id) throws SQLException;
-
-	public void deleteUser(int id) throws SQLException;
+	public User getUserByName(String userName, String password) throws DaoException;
 }
