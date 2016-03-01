@@ -7,7 +7,6 @@ import org.hibernate.*;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import connect.HibernateUtil;
 import dao.impl.QuestionDAO;
 import entity.*;
 import exceptions.DaoException;
@@ -27,7 +26,7 @@ public class QuestionDAOImpl extends BaseDAO<Question> implements QuestionDAO{
 	}
 
 	public List<Question> getQuestionPage(int page, Test test, int maxQuestions) throws DaoException {
-		Session session = HibernateUtil.getInstance().getSession();
+		Session session = currentSession();
 		List<Question> questions = new LinkedList<Question>();
 		try {
 			Criteria crit = session.createCriteria(Question.class);
@@ -49,11 +48,10 @@ public class QuestionDAOImpl extends BaseDAO<Question> implements QuestionDAO{
 	public int getCountQuestionsByTestId(int testId) throws DaoException {
 		int countValue;
 		try {
-			Session session = HibernateUtil.getInstance().getSession();
+			Session session = currentSession();
 			String hql = "SELECT count(idQuestion) from Question where Test_idTest=:testId";
 			Query query = session.createQuery(hql);
 			query.setParameter("testId", testId);
-			System.out.println(hql);
 			countValue = ((Number) query.uniqueResult()).intValue();
 		} catch (HibernateException e) {
 			logger.error("Error " + e);

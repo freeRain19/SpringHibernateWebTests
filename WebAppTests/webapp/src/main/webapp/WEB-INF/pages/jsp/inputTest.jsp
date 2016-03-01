@@ -25,7 +25,7 @@
 			</tr>
 			<tr><td align="center" colspan="2"><input type="submit" value="A D D new Test" align="center"></td></tr>
 		</table>
-			<input type="hidden" name="Action" value="intputTest" />
 	</form>
+	<a href="/webapp/">back to Main page</a>
 </body>
 </html>

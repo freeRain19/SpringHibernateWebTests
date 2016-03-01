@@ -6,7 +6,6 @@ import org.hibernate.*;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import connect.HibernateUtil;
 import dao.impl.UserDAO;
 import entity.User;
 import exceptions.DaoException;
@@ -21,20 +20,17 @@ public class UserDAOImpl extends BaseDAO<User> implements UserDAO{
 		super(sessionFactory);
 		this.sessionFactory = sessionFactory;
 	}
-
 	public UserDAOImpl() {
 	}
 
 	
-	public User getUserByName(String name, String password) throws DaoException {
+	public User getUserByName(String name) throws DaoException {
 		User user;
 		try {
-			// Session session = HibernateUtil.getInstance().getSession();
-			System.out.println("====================================================");
 			Session session = currentSession();
 			Criteria criteria = session.createCriteria(User.class);
 			criteria.add(Restrictions.eq("name", name));
-			criteria.add(Restrictions.and((Restrictions.eq("password", password))));
+		//	criteria.add(Restrictions.and((Restrictions.eq("password", password))));
 			user = (User) criteria.uniqueResult();
 		} catch (HibernateException hib) {
 			hib.printStackTrace();
@@ -42,7 +38,6 @@ public class UserDAOImpl extends BaseDAO<User> implements UserDAO{
 			throw new DaoException(hib);
 		} catch (Exception e) {
 			logger.error("get UserByName exeption \n" + e);
-			e.printStackTrace();
 			throw new DaoException(e);
 		}
 		return user;

@@ -5,21 +5,21 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import dao.impl.UserDAO;
 import entity.*;
 
 public class UserDAOImplTest {
 	private static Logger log = Logger.getLogger(UserDAOImplTest.class);
 
 	@Autowired
-	UserDAOImpl userDao;
+	UserDAO userDao;
 
-	// @Test
+	 @Test
 	public void userDaoTest() {
-
 		try {
-
-			User user = userDao.getUserByName("Vanov", "2");
-			System.out.println(user);
+			System.out.println("start test");
+			User user = userDao.getUserByName("Vanov");
+			System.out.println("User = "+user);
 		} catch (Exception e) {
 			log.error("UserDAOImplTest error \n" + e);
 		}

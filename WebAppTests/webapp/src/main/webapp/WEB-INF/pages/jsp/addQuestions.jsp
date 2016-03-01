@@ -37,12 +37,8 @@
 				</td>
 			</tr>
 		</table>
-		<input type="hidden" name="Action" value="addQuestion" />
 	</form>
-
 	<br>
-	<a href="login.jsp">back to Login page</a>
-
-
+	<a href="/webapp/">back to Login page</a>
 </body>
 </html>

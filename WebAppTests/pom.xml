@@ -14,6 +14,7 @@
 		<spring.version>4.2.1.RELEASE</spring.version>
 		<tiles.version>3.0.5</tiles.version>
 		<slf4j.version>1.7.0</slf4j.version>
+		 <spring.security>3.2.5.RELEASE</spring.security>
 	</properties>
 
 	<dependencies>
@@ -72,8 +73,30 @@
 			<artifactId>spring-test</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
+		<!--Spring Security -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>${spring.security}</version>
+		</dependency>
 
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${spring.security}</version>
+		</dependency>
 
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${spring.security}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<version>${spring.security}</version>
+		</dependency>
 		<!-- HIBERNATE -->
 
 		<dependency>

@@ -38,6 +38,6 @@
 			<td>Your last result =${resultTest}%</td>
 		</tr>
 	</table>
-	<a href="login.jsp">back to Login page</a>
+	<a href="/webapp/">back to Main page</a>
 </body>
 </html>

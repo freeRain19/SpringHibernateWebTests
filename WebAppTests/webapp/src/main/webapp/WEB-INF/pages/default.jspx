@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <html xmlns:jsp="http://java.sun.com/JSP/Page"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:tiles="http://tiles.apache.org/tags-tiles">
-
+	xmlns:tiles="http://tiles.apache.org/tags-tiles"
+	xmlns:security="http://www.springframework.org/security/tags">
 <jsp:output doctype-public="-//W3C//DTD XHTML 1.1//EN"
 	doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"
 	doctype-root-element="html" omit-xml-declaration="false" />
@@ -15,9 +15,25 @@
 </head>
 <body>
 	<div style="float: right;">
-		<a href="../person/persons.form?locale=ru" style="padding: 5px">RU</a>
-		<a href="../person/persons.form?locale=en" style="padding: 5px">EN</a>
+		<a href="../person/persons.form?locale=ru" style="padding: 5px"><font color="yellow">RU</font></a>
+		<a href="../person/persons.form?locale=en" style="padding: 5px"><font color="yellow">EN</font></a>
 	</div>
+	<security:authorize access="isAnonymous()">
+		<div align="center">
+			<font color="white" size="6">Hello , Guest</font>
+		</div>
+		<a href="login">login</a>
+	</security:authorize>
+	<security:authorize access="isAuthenticated()">
+		<div align="right">
+			<b><font color="yellow" size="4">Hi, dear <security:authentication
+					property="principal.username" /></font>
+			</b>
+		</div>
+		<DIV align="right">
+			<a href="logout"><font color="yellow">LOGOUT</font></a>
+		</DIV>
+	</security:authorize>
 	<tiles:insertAttribute name="header" />
 	<tiles:insertAttribute name="body" />
 	<tiles:insertAttribute name="footer" />

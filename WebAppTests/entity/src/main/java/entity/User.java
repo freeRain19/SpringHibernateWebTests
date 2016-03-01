@@ -12,7 +12,7 @@ public class User {
 	public User() {
 	}
 
-	public User(int accessLevel_idAccessLevel, String name, String password) {
+	public User(String accessLevel_idAccessLevel, String name, String password) {
 		this.accessLevel_idAccessLevel = accessLevel_idAccessLevel;
 		this.name = name;
 		this.password = password;
@@ -29,7 +29,7 @@ public class User {
 	 * User level may be 1 or 2 (student of tutor)
 	 */
 	@Column(name = "AccessLevel_idAccessLevel")
-	private int accessLevel_idAccessLevel;
+	private String accessLevel_idAccessLevel;
 	/**
 	 * User name
 	 */
@@ -57,11 +57,11 @@ public class User {
 		this.idUser = idUser;
 	}
 
-	public int getAccessLevel_idAccessLevel() {
+	public String getAccessLevel_idAccessLevel() {
 		return accessLevel_idAccessLevel;
 	}
 
-	public void setAccessLevel_idAccessLevel(int accessLevel_idAccessLevel) {
+	public void setAccessLevel_idAccessLevel(String accessLevel_idAccessLevel) {
 		this.accessLevel_idAccessLevel = accessLevel_idAccessLevel;
 	}
 

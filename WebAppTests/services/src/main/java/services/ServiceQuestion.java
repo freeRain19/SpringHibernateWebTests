@@ -6,13 +6,16 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import dao.impl.QuestionDAO;
 import entity.*;
 import exceptions.DaoException;
 import impl.IServiceQuestion;
 
 @Service
-public class ServiceQuestion implements IServiceQuestion{
+@Transactional
+public class ServiceQuestion implements IServiceQuestion {
 
 	@Autowired
 	QuestionDAO questDAO;
@@ -31,6 +34,7 @@ public class ServiceQuestion implements IServiceQuestion{
 	 *            current Test which we do
 	 * @return compile DTO (List questions, page, remainPage )
 	 */
+	@Transactional(readOnly = true)
 	public QuestionDTO getQuestionByTest(int page, Test test) {
 		QuestionDTO qDTO = null;
 		List<Question> questions = new LinkedList<Question>();
@@ -54,6 +58,7 @@ public class ServiceQuestion implements IServiceQuestion{
 	 *            Question what we add in database
 	 * @return Serializable number of id in db
 	 */
+	@Transactional
 	public Serializable addQuestion(Question question) {
 		Serializable id = 0;
 		try {

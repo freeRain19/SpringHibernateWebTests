@@ -13,9 +13,10 @@
 
 	<import resource="classpath*:beans-services.xml" />
 	<import resource="classpath*:beans-dao.xml" />
-	<!-- <mvc:resources mapping="/resources/**" location="assests"/> -->
+	<mvc:resources mapping="/resources/**" location="/resources/"/> 
 	<mvc:annotation-driven />
 	<context:component-scan base-package="controllers" />
+	<context:component-scan base-package="auth" />
 	<bean id="tilesConfigurer"
 		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
 		<property name="definitions">

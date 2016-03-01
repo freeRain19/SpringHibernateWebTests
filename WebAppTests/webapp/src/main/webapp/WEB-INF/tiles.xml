@@ -13,9 +13,13 @@
 
 	<definition name="login" extends="default">
 		<put-attribute name="title" value="Welcome user" />
-		<put-attribute name="body" value="/WEB-INF/pages/login.jsp" />
+		<put-attribute name="body" value="/login.jsp" />
 	</definition>
 
+	<definition name="main" extends="default">
+		<put-attribute name="title" value="M A I N page" />
+		<put-attribute name="body" value="/main.jsp" />
+	</definition>
 	<definition name="viewtests" extends="default">
 		<put-attribute name="title" value="All tests" />
 		<put-attribute name="body" value="/WEB-INF/pages/jsp/viewtests.jsp" />
@@ -28,18 +32,28 @@
 
 	<definition name="addQuestions" extends="default">
 		<put-attribute name="title" value="Add new  question" />
-		<put-attribute name="body" value="/WEB-INF/pages/jsp/addQuestions.jsp" />
+		<put-attribute name="body"
+			value="/WEB-INF/pages/jsp/addQuestions.jsp" />
 	</definition>
 
 	<definition name="answTest" extends="default">
 		<put-attribute name="title" value="Answer pls" />
 		<put-attribute name="body" value="/WEB-INF/pages/jsp/answTest.jsp" />
 	</definition>
-	
+
 	<definition name="Error" extends="default">
 		<put-attribute name="title" value="E R R O R" />
 		<put-attribute name="body" value="/WEB-INF/pages/jsp/Error.jsp" />
 	</definition>
 
+	<definition name="welcome" extends="default">
+		<put-attribute name="title" value="Welcome user" />
+		<put-attribute name="body" value="/WEB-INF/pages/jsp/welcome.jsp" />
+	</definition>
+	<definition name="access-denied" extends="default">
+		<put-attribute name="title" value="Welcome user" />
+		<put-attribute name="body"
+			value="/WEB-INF/pages/jsp/access-denied.jsp" />
+	</definition>
 </tiles-definitions>
 

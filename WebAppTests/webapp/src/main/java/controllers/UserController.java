@@ -1,35 +1,65 @@
 package controllers;
 
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-import services.UtilService;
-import services.ServiceTest;
+import impl.*;
 
 @Controller
 public class UserController {
 	@Autowired
-	UtilService service;
+	IUtilService service;
 	@Autowired
-	ServiceTest serviceTest;
+	IServiceTest serviceTest;
 
-	@RequestMapping(value = "/validate")
-	public String validateUser(String name, String password, ModelMap model) {
-		int accessLevel = 0;
-		accessLevel = service.validateUser(name, password);
-		model.put("resultTest", 0);
-		if (accessLevel == 1) {
-			if (serviceTest.getAllTests().size() > 0)
-				model.put("tests", serviceTest.getAllTests());
-			return "viewtests";
-		}
-		if (accessLevel == 2)
-			return "inputTest";
-		if (accessLevel == 0) {
-			model.put("incorrect", "Can't find user  "+name);
-		}
+	@RequestMapping(value = "/welcome")
+	public String welcomeUsere(ModelMap model) {
+		return "welcome";
+	}
+
+	@RequestMapping(value = "/")
+	public String defaultPage() {
+		return "welcome";
+	}
+	@RequestMapping(value = "/login")
+	public String loginPage() {
 		return "login";
+	}
+
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth != null) {
+			new SecurityContextLogoutHandler().logout(request, response, auth);
+		}
+		return "redirect:/login?logout";
+	}
+
+	@RequestMapping(value = "/access_denied")
+	public String accessDeniedPage(ModelMap model) {
+		model.addAttribute("user", getPrincipal());
+		return "access-denied";
+	}
+
+	private String getPrincipal() {
+		String userName = null;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+		if (principal instanceof UserDetails) {
+			userName = ((UserDetails) principal).getUsername();
+		} else {
+			userName = principal.toString();
+		}
+		return userName;
 	}
 }

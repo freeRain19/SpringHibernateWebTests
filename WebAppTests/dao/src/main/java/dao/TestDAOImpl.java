@@ -6,8 +6,6 @@ import org.apache.log4j.Logger;
 import org.hibernate.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import connect.HibernateUtil;
 import dao.impl.TestDAO;
 import entity.*;
 import exceptions.DaoException;
@@ -27,7 +25,7 @@ public class TestDAOImpl extends BaseDAO<Test> implements TestDAO{
 	}
 
 	public List<Test> getAllTestNames() throws DaoException {
-		Session session = HibernateUtil.getInstance().getSession();
+		Session session = currentSession();
 		List<Test> testsNames = new LinkedList<Test>();
 		try {
 			String sql = "from Test";

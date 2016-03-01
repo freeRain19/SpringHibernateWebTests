@@ -3,12 +3,14 @@ package services;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.apache.log4j.Logger;
 import dao.impl.UserDAO;
 import entity.*;
 import impl.IUtilService;
 
 @Service
+@Transactional
 public class UtilService implements IUtilService {
 	static int currentTestId;
 	static int currentQuestionId;
@@ -28,7 +30,8 @@ public class UtilService implements IUtilService {
 	public Test getCurrentTest() {
 		return currentTest;
 	}
-
+/*
+	@Transactional(readOnly = true)
 	public int validateUser(String userName, String password) {
 		int accessLevel = 0;
 		User user = null;
@@ -41,7 +44,7 @@ public class UtilService implements IUtilService {
 		}
 		return accessLevel;
 	}
-
+*/
 	int count = 0;
 	int rightCount = 0;
 	private float rightPercent = 0.0f;

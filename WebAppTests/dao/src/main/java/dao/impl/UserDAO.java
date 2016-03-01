@@ -6,5 +6,5 @@ import exceptions.DaoException;
 
 public interface UserDAO extends Dao<User> {
 
-	public User getUserByName(String userName, String password) throws DaoException;
+	public User getUserByName(String userName) throws DaoException;
 }

@@ -2,11 +2,11 @@ package controllers;
 
 import java.util.LinkedList;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,17 +14,29 @@ import entity.QuestionDTO;
 import entity.Test;
 import impl.*;
 
-
 @Controller
 public class TestController {
 	private static final Logger logger = Logger.getLogger(TestController.class);
 	@Autowired
-	IServiceTest serviceTest ;
+	IServiceTest serviceTest;
 	@Autowired
-	IUtilService service ;
+	IUtilService service;
 	@Autowired
 	IServiceQuestion serviceQuestion;
 
+	@Secured("ROLE_student")
+	@RequestMapping("/viewtests")
+	public String viewtests(ModelMap model) {
+		List<Test> tests= serviceTest.getAllTests();
+		model.put("tests", tests);
+		return "viewtests";
+	}
+	@Secured("ROLE_tutor")
+	@RequestMapping("/addTest")
+	public String addTest() {
+		return "inputTest";
+	}
+	@Secured("ROLE_student")
 	@RequestMapping("/selectTest")
 	public String selectTest(String idTest, ModelMap model, HttpSession session) {
 		System.out.println("idTest - " + idTest);
@@ -52,7 +64,7 @@ public class TestController {
 		}
 		return target;
 	}
-
+	@Secured("ROLE_tutor")
 	@RequestMapping("/inputTest")
 	public String inputTest(String subject, String testName, ModelMap model, HttpSession session) {
 		String target = "Error";
@@ -66,7 +78,7 @@ public class TestController {
 			target = "addQuestions";
 		return target;
 	}
-
+	@Secured("ROLE_student")
 	@RequestMapping("/checkTest")
 	public String checkTest(HttpServletRequest request, ModelMap model, String page, String finish) {
 		String target = "Error";
