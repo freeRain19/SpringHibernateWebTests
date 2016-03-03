@@ -31,11 +31,13 @@ public class TestController {
 		model.put("tests", tests);
 		return "viewtests";
 	}
+	
 	@Secured("ROLE_tutor")
 	@RequestMapping("/addTest")
 	public String addTest() {
 		return "inputTest";
 	}
+	
 	@Secured("ROLE_student")
 	@RequestMapping("/selectTest")
 	public String selectTest(String idTest, ModelMap model, HttpSession session) {
@@ -64,11 +66,11 @@ public class TestController {
 		}
 		return target;
 	}
+	
 	@Secured("ROLE_tutor")
 	@RequestMapping("/inputTest")
 	public String inputTest(String subject, String testName, ModelMap model, HttpSession session) {
 		String target = "Error";
-
 		Test test = new Test(subject, testName);
 		session.setAttribute("currentTest", test);
 		int result = (int) serviceTest.addTest(test);
@@ -78,6 +80,7 @@ public class TestController {
 			target = "addQuestions";
 		return target;
 	}
+	
 	@Secured("ROLE_student")
 	@RequestMapping("/checkTest")
 	public String checkTest(HttpServletRequest request, ModelMap model, String page, String finish) {

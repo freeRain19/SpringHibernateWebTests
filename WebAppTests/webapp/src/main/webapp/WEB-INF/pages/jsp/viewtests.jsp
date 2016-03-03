@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <html>
 <head>
 <title>Test View</title>
@@ -9,6 +8,7 @@
 
 	<h2 align="center">Select your subject</h2>
 	<form action="selectTest" method="post">
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
 		<table border="4" bgcolor="#4690FF" bordercolor="yellow"
 			align="center" width="800">
 			<tr align="center">

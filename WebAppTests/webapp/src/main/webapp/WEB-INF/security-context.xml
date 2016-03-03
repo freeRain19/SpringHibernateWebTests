@@ -10,10 +10,11 @@
 		<intercept-url pattern="/**" access="permitAll" />
 
 		<form-login login-page="/login" username-parameter="userName"
-			password-parameter="password" authentication-failure-url="/access_denied"
-			login-processing-url="/validate"  default-target-url="/welcome" />
-			<access-denied-handler error-page="/access_denied" />
-			<logout logout-url="/logout"/>
+			password-parameter="password" login-processing-url="/validate"
+			default-target-url="/welcome" />
+		<access-denied-handler error-page="/access_denied" /><!-- 
+			authentication-failure-url="/Error" -->
+		<logout logout-url="/logout" />
 		<csrf />
 	</http>
 

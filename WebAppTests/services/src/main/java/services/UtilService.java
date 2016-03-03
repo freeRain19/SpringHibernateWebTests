@@ -20,31 +20,14 @@ public class UtilService implements IUtilService {
 	public void setCurrentTest(Test currentTest) {
 		this.currentTest = currentTest;
 	}
-
 	@Autowired
 	UserDAO userDAO;
-
 	public UtilService() {
 	}
-
 	public Test getCurrentTest() {
 		return currentTest;
 	}
-/*
-	@Transactional(readOnly = true)
-	public int validateUser(String userName, String password) {
-		int accessLevel = 0;
-		User user = null;
-		try {
-			user = userDAO.getUserByName(userName, password);
-			accessLevel = user.getAccessLevel_idAccessLevel();
-		} catch (Exception e) {
-			logger.error("get User and password from databse exception \n" + e.toString());
-			return 0;
-		}
-		return accessLevel;
-	}
-*/
+
 	int count = 0;
 	int rightCount = 0;
 	private float rightPercent = 0.0f;
@@ -63,12 +46,10 @@ public class UtilService implements IUtilService {
 	}
 
 	public int getRightPercent() {
-		System.out.println("count =" + count);
 		count = 0;
 		rightCount = 0;
 		int value = (int) (rightPercent * 100);
 		rightPercent = 0;
-		System.out.println("Percent = " + value);
 		return value;
 	}
 

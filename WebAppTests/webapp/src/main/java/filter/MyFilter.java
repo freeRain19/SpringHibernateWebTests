@@ -20,17 +20,21 @@ public class MyFilter implements Filter {
 	@Override
 	public void init(FilterConfig config) throws ServletException {
 		this.filterConfig = config;
+		String encodingParam = filterConfig.getInitParameter("encoding");
+        if (encodingParam != null) {
+            encoding = encodingParam;
+        }
 	}
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain filterChain) throws IOException, ServletException {
-		
-		
 		encoding = request.getCharacterEncoding();
-
-		if (!"UTF-8".equalsIgnoreCase(encoding))
+		request.setCharacterEncoding("UTF-8");
+		if (!"UTF-8".equalsIgnoreCase(encoding)){
 			response.setCharacterEncoding("UTF-8");
+			request.setCharacterEncoding("UTF-8");
+		}
 		encoding = request.getCharacterEncoding();
 		filterChain.doFilter(request, response);
 

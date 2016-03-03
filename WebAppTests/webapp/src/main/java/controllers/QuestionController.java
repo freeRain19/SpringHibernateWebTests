@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,7 @@ public class QuestionController {
 	IServiceQuestion serviceQuestion;
 	private static final Logger logger = Logger.getLogger(QuestionController.class);
 
+	@Secured("ROLE_tutor")
 	@RequestMapping("/addQuestion")
 	public String addQuestion(ModelMap model, String textQuestion, HttpServletRequest request) {
 		String textAnsw;

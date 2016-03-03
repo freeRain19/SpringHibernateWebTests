@@ -2,7 +2,9 @@
 <html xmlns:jsp="http://java.sun.com/JSP/Page"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:tiles="http://tiles.apache.org/tags-tiles"
-	xmlns:security="http://www.springframework.org/security/tags">
+	xmlns:spring="http://www.springframework.org/tags"
+	xmlns:security="http://www.springframework.org/security/tags"
+	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt">
 <jsp:output doctype-public="-//W3C//DTD XHTML 1.1//EN"
 	doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"
 	doctype-root-element="html" omit-xml-declaration="false" />
@@ -14,21 +16,28 @@
 	</c:if></TITLE>
 </head>
 <body>
+
 	<div style="float: right;">
-		<a href="../person/persons.form?locale=ru" style="padding: 5px"><font color="yellow">RU</font></a>
-		<a href="../person/persons.form?locale=en" style="padding: 5px"><font color="yellow">EN</font></a>
+		<a href="../webapp?locale=ru" style="padding: 5px"><font
+			color="yellow">RU</font></a> <a href="../webapp?locale=en"
+			style="padding: 5px"><font color="yellow">EN</font></a>
 	</div>
 	<security:authorize access="isAnonymous()">
 		<div align="center">
-			<font color="white" size="6">Hello , Guest</font>
+			<font color="white" size="6"><spring:message code="Hello" />
+				, <spring:message code="guest" /></font>
 		</div>
-		<a href="login">login</a>
+		<form action="/webapp/login">
+			<DIV align="center">
+				<button name="button1">login</button>
+			</DIV>
+		</form>
 	</security:authorize>
 	<security:authorize access="isAuthenticated()">
 		<div align="right">
-			<b><font color="yellow" size="4">Hi, dear <security:authentication
+			<font color="yellow" size="4"><spring:message code="Hi" />, <spring:message
+					code="dear" /> , <security:authentication
 					property="principal.username" /></font>
-			</b>
 		</div>
 		<DIV align="right">
 			<a href="logout"><font color="yellow">LOGOUT</font></a>

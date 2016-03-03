@@ -6,19 +6,23 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import dao.impl.*;
 import entity.*;
 import exceptions.DaoException;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+@ContextConfiguration("/beans-dao.xml")
+@RunWith(SpringJUnit4ClassRunner.class)
+public class QuestionDAOTest {
+	private static Logger log = Logger.getLogger(QuestionDAOTest.class);
 
-public class QuestionDAOImplTest {
-	private static Logger log = Logger.getLogger(QuestionDAOImplTest.class);
-
-	// QuestionDAOImpl questionDao = QuestionDAOImpl.getInstance();
-	// TestDAOImpl testDao = TestDAOImpl.getInstance();
 	@Autowired
-	QuestionDAOImpl questionDao;
+	QuestionDAO questionDao;
 	@Autowired
-	TestDAOImpl testDao;
+	TestDAO testDao;
 
 	@Test
 	public void questionDaoTest() {
@@ -39,10 +43,10 @@ public class QuestionDAOImplTest {
 		} catch (Exception e) {
 			log.error("QuestionDAOImplTest exception \n" + e);
 		}
-		Assert.assertEquals("Question question1=question", 1, 1);
+		Assert.assertEquals("Question question1=question",question, question1);
 	}
 
-	// @Test
+	 @Test
 	public void testQuestion() throws DaoException {
 		List<Question> questions = new LinkedList<Question>();
 		int count = questionDao.getCountQuestionsByTestId(testDao.get(8).getIdTest());

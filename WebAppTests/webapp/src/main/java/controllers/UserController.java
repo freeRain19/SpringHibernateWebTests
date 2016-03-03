@@ -23,15 +23,18 @@ public class UserController {
 	IServiceTest serviceTest;
 
 	@RequestMapping(value = "/welcome")
-	public String welcomeUsere(ModelMap model) {
+	public String welcomeUsere() {
 		return "welcome";
 	}
-
+	@RequestMapping(value = "/Error")
+	public String pageError() {
+		return "Error";
+	}
 	@RequestMapping(value = "/")
 	public String defaultPage() {
 		return "welcome";
 	}
-	@RequestMapping(value = "/login")
+	@RequestMapping(value = "login")
 	public String loginPage() {
 		return "login";
 	}
